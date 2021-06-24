@@ -9,6 +9,10 @@ terraform {
     kubernetes = {
       source = "hashicorp/kubernetes"
     }
+    sops = {
+      source = "carlpett/sops"
+      version = "~> 0.5"
+    }
   }
 }
 
@@ -19,4 +23,8 @@ provider "kubernetes" {
 
 provider "kubectl" {
   config_path = var.kube_conf_file
+}
+
+data "sops_file" "sops-gpg" {
+  source_file = "secrets.enc.yaml"
 }

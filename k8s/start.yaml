@@ -1,8 +1,8 @@
 # sourced from https://repo1.dso.mil/platform-one/quick-start/big-bang/-/blob/master/start.yaml
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: bigbang
+#apiVersion: v1
+#kind: Namespace
+#metadata:
+#  name: bigbang
 
 ---
 apiVersion: source.toolkit.fluxcd.io/v1beta1
@@ -12,9 +12,12 @@ metadata:
   namespace: bigbang
 spec:
   interval: 1m
-  url: https://repo1.dso.mil/platform-one/quick-start/big-bang.git
+  #url: https://github.com/recarmona/bigbang.git
+  url: https://github.com/recarmona/template.git 
+  #url: https://repo1.dso.mil/platform-one/big-bang/bigbang.git
+  #url: https://repo1.dso.mil/platform-one/quick-start/big-bang.git
   ref:
-    branch: master
+    branch: template-demo
 
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta1
@@ -27,5 +30,9 @@ spec:
   sourceRef:
     kind: GitRepository
     name: environment-repo
-  path: ./bigbang
+  path: ./dev
   prune: true
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-gpg

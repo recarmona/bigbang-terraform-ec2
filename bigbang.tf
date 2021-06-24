@@ -6,15 +6,15 @@ resource "kubectl_manifest" "big_bang" {
   count     = length(data.kubectl_file_documents.bigbang.documents)
   yaml_body = element(data.kubectl_file_documents.bigbang.documents, count.index)
   depends_on = [
-    kubectl_manifest.flux_deployment,
-    kubernetes_secret.bb-common-secret
+    kubectl_manifest.flux_deployment
+    #,    kubernetes_secret.bb-common-secret
   ]
 }
 
-data "external" "Wait_for_load_balancer" {
-  program = ["sh", "${path.module}/get-eip.sh"]
-
-  depends_on = [
-    kubectl_manifest.big_bang
-  ]
-}
+#data "external" "Wait_for_load_balancer" {
+#  program = ["sh", "${path.module}/get-eip.sh"]
+#
+#  depends_on = [
+#    kubectl_manifest.big_bang
+#  ]
+#}

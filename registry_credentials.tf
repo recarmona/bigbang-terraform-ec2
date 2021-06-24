@@ -21,18 +21,18 @@ resource "kubernetes_secret" "private_registry" {
     kubernetes_namespace.namespace_flux_system
   ]
 }
+#
+#resource "kubernetes_secret" "bb-common-secret" {
+#  metadata {
+  #  name      = "terraform"
+  #  namespace = "bigbang"#
+ # }
 
-resource "kubernetes_secret" "bb-common-secret" {
-  metadata {
-    name      = "terraform"
-    namespace = "bigbang"
-  }
+#  data = {
+#    "values.yaml" = local.yaml
+#  }
 
-  data = {
-    "values.yaml" = local.yaml
-  }
-
-  depends_on = [
-    kubernetes_namespace.namespace_bigbang
-  ]
-}
+#  depends_on = [
+#    kubernetes_namespace.namespace_bigbang
+#  ]
+#}
